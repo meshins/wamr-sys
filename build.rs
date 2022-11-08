@@ -9,6 +9,8 @@ fn main() {
     let dst = Config::new("libiwasm")
         .generator("Unix Makefiles")
         .define("CMAKE_BUILD_TYPE", "Release")
+        .define("WAMR_BUILD_PLATFORM", "darwin") // FIXME: configure via cargo
+        .define("WAMR_BUILD_TARGET", "AARCH64") // FIXME: configure via cargo
         .no_build_target(true)
         .build();
     // Check output of `cargo build --verbose`, should see something like:

@@ -1,12 +1,14 @@
 # Copyright (C) 2019 Intel Corporation.  All rights reserved.
 # SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
-cmake_minimum_required (VERSION 2.8)
+cmake_minimum_required (VERSION 3.0)
 
 project (iwasm)
 # set (CMAKE_VERBOSE_MAKEFILE 1)
 
-set (WAMR_BUILD_PLATFORM "linux")
+if (NOT DEFINED WAMR_BUILD_PLATFORM)
+    set (WAMR_BUILD_PLATFORM "linux")
+endif ()
 
 # Reset default linker flags
 set (CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "")
