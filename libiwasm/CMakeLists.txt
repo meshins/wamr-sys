@@ -96,11 +96,12 @@ set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--gc-sections -pie -f
 set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wformat -Wformat-security")
 # set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wconversion -Wsign-conversion")
 
-if (WAMR_BUILD_TARGET MATCHES "X86_.*" OR WAMR_BUILD_TARGET STREQUAL "AMD_64")
-  if (NOT (CMAKE_C_COMPILER MATCHES ".*clang.*" OR CMAKE_C_COMPILER_ID MATCHES ".*Clang"))
-    set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mindirect-branch-register")
-  endif ()
-endif ()
+# TODO: check why this doesn't work with x86_64 GCC on Darwin AARCH64
+# if (WAMR_BUILD_TARGET MATCHES "X86_.*" OR WAMR_BUILD_TARGET STREQUAL "AMD_64")
+#   if (NOT (CMAKE_C_COMPILER MATCHES ".*clang.*" OR CMAKE_C_COMPILER_ID MATCHES ".*Clang"))
+#     set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mindirect-branch-register")
+#   endif ()
+# endif ()
 
 # The following flags are to enhance security, but it may impact performance,
 # we disable them by default.

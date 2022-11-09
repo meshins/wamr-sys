@@ -4,13 +4,23 @@ extern crate cmake;
 use cmake::Config;
 use std::{env, path::PathBuf};
 
+use build_target;
+
 fn main() {
+    let target = build_target::target_arch().unwrap();
+    let platform = build_target::target_triple()
+        .unwrap()
+        .split('-')
+        .nth(2) // necessary since some targets have more info, i.e. x86_64-unknown-linux-gnu
+        .unwrap()
+        .to_owned();
+
     // Run cmake to build nng
     let dst = Config::new("libiwasm")
         .generator("Unix Makefiles")
         .define("CMAKE_BUILD_TYPE", "Release")
-        .define("WAMR_BUILD_PLATFORM", "darwin") // FIXME: configure via cargo
-        .define("WAMR_BUILD_TARGET", "AARCH64") // FIXME: configure via cargo
+        .define("WAMR_BUILD_PLATFORM", platform.as_str())
+        .define("WAMR_BUILD_TARGET", target.as_str().to_uppercase())
         .no_build_target(true)
         .build();
     // Check output of `cargo build --verbose`, should see something like:
